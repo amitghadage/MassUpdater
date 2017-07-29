@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable" controller="ObjectFieldSelectorController">
+
+ <aura:registerEvent name="valueNObjectSelected" type="c:FieldSelectedValueAdded"/>
+ <aura:attribute name="sObjectList" type="SelectOption[]" description="List of all sobjects in salesforce"/>
+ <aura:attribute name="objectSelected" type="String" description="after selecting a sobject from list assign to this attribute"/>
+ <aura:attribute name="sObjectLookupFieldList" type="SelectOption[]" description="List of all lookup fields of selected sobjects in salesforce"/>
+ <aura:attribute name="sObjectFieldList" type="SelectOption[]" description="List of all fields of selected sobjects in salesforce"/>
+ <aura:attribute name="lookupFieldSelected" type="String" description="Lookup Field selected"/>
+  
+ <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+ <div class="slds-grid">
+  <div class="slds-col">
+  <lightning:select label="Select an object" name="selected_object" aura:id="selected_object" onchange="{!c.renderFieldNames}">
+        <aura:iteration items="{!v.sObjectList}" var="sobject">
+            <option value="{!sobject.value}">{!sobject.label}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+     <lightning:select label="Select a  Field" name="selected_Lookup_Field" aura:id="selected_Lookup_Field" onchange="{!c.handleLookupSelected}">
+        <aura:iteration items="{!v.sObjectLookupFieldList}" var="sobjectLookupField">
+            <option value="{!sobjectLookupField.value}">{!sobjectLookupField.label}</option>
+        </aura:iteration>
+  </lightning:select>
+  
+  Enter {!v.lookupFieldSelected}
+ 	<ui:inputText aura:Id="lookupObjectId" label="" required="true" />
+  
+     </div>
+  	<div class="slds-col">
+  	<div class="slds-form-element">
+  <label class="slds-form-element__label" for="select-01">Select fields to display </label>
+  <div class="slds-form-element__control">
+  	<ui:inputSelect aura:id="searchFields" multiple="true">
+  	<aura:iteration items="{!v.sObjectFieldList}" var="sobjectField">
+            <option value="{!sobjectField.value}">{!sobjectField.label}</option>
+        </aura:iteration>  	
+  	</ui:inputSelect>
+  	 </div>
+  	 <div class="slds-text-align_center slds-m-around--x-small"><lightning:button variant="brand" label="Proceed" onclick="{!c.handleProceedClick}"/></div>
+</div>
+  	</div>
+
+  </div>     
+</aura:component>

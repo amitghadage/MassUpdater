@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="Application Event with Object Name Field Name and Id" >
+<aura:attribute name="ObjectName" type="String" description="Object Name of which lookup is selected" />
+<aura:attribute name="LookupObjectName" type="String" description="lookup Object Name which is selected" />
+<aura:attribute name="LookupId" type="String" description="Id of lookup object selected" />
+<aura:attribute name="sobjectFieldListSelected" type="String" description="List of fields selected" /> 
+</aura:event>

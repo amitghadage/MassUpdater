@@ -1,0 +1,48 @@
+<aura:component controller="SearchListController">
+	<aura:handler event="c:FieldSelectedValueAdded" action="{!c.handleFieldSelectedValueAddedEvent}"/>	
+	<aura:attribute name="objectName" type="String" description="Object Selected"/>
+	<aura:attribute name="lookupFieldName" type="String" description="Object Lookup updating"/>
+	<aura:attribute name="newLookupValue" type="String" description="new value of lookup"/>
+	
+	<!-- Attributes for Pagination -->
+	<aura:attribute name="PaginationWrapper" type="SearchListController.paginationWrapper" description="to disable buttons next and prev" />
+	<aura:attribute name="offset" type="String" default="0"/>
+    <aura:attribute name="hasNext" type="boolean" default="false"/>
+    <aura:attribute name="hasPrev" type="boolean" default="false"/>
+    
+	<aura:attribute name="sobjectFieldListSelected" type="String" description="new value of sobjectFieldListSelected"/>
+	<ui:inputText label="{!'Find a '+v.objectName}" aura:id="inputSearch" keyup="{!c.findSobjects}" updateOn="keyup"/>
+	<div class= "container slds-p-top--medium">
+   		<div id="list" class= "row">i
+        	<table  class="slds-table slds-table--bordered slds-table--striped">
+       			<aura:iteration items="{!v.PaginationWrapper.SObjectWrapperList}" var="sr">
+        			<tr>
+                    	<td><ui:inputCheckbox value="{!sr.checkBox}"/></td>
+                        <td>{!sr.field1}</td>
+                        <td>{!sr.field2}</td>
+                        <td>{!sr.field3}</td>
+                        <td>{!sr.field4}</td>
+                        <td>{!sr.field5}</td>
+                    </tr>
+    
+      		    </aura:iteration>
+            </table>
+           </div>
+           
+           </div>
+           
+           
+		<aura:if isTrue="{!not(empty(v.objectName))}">
+		<div class="demo-only demo-only--sizing slds-grid slds-wrap">
+  		<div class="slds-size_1-of-2">
+    	<div class="slds-text-align_center slds-m-around--x-small"><lightning:button class="slds-button slds-button_neutral slds-button__icon--left" variant="brand" label="Previous" onclick="{!c.prev}" disabled="{!v.PaginationWrapper.hasPrev}"/></div>
+  		</div>
+  		<div class="slds-size_1-of-2">
+    	<div class="slds-text-align_center slds-m-around--x-small"><lightning:button class="slds-button slds-button_neutral slds-button__icon--right" variant="brand" label="Next" onclick="{!c.next}" disabled="{!v.PaginationWrapper.hasNext}"/></div>
+  		</div>
+  		<div class="slds-size_2-of-2">
+    	<div class="slds-text-align_center slds-m-around--x-small"><lightning:button class="slds-button slds-button_success" variant="brand" label="Update" onclick="{!c.assignReverseLookup}"/></div>
+		</div>
+		</div>
+		</aura:if>
+</aura:component>
